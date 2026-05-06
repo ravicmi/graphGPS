@@ -1,47 +1,36 @@
 out_dir: results
-metric_best: accuracy
-metric_agg: argmax
+metric_best: mae
+metric_agg: argmin
 wandb:
   use: False
-  project: NCI1
+  project: ZINC
 dataset:
-  format: PyG-TUDataset
-  name: NCI1
+  format: PyG-ZINC
+  name: subset
   task: graph
-  task_type: classification
+  task_type: regression
   transductive: False
   node_encoder: True
-  node_encoder_name: LinearNode+LapPE  # Pbase: LapPE as structural encoding
+  node_encoder_name: TypeDictNode  # P = ∅: no positional/structural encoding
+  node_encoder_num_types: 28
   node_encoder_bn: False
   edge_encoder: True
-  edge_encoder_name: DummyEdge
+  edge_encoder_name: TypeDictEdge
+  edge_encoder_num_types: 4
   edge_encoder_bn: False
-  split_mode: cv-stratifiedkfold-10
-  split_index: 0
-  split_dir: splits
-posenc_LapPE:
-  enable: True
-  eigen:
-    laplacian_norm: sym
-    eigvec_norm: L2
-    max_freqs: 8
-  model: DeepSet
-  dim_pe: 8
-  layers: 2
-  raw_norm_type: none
 train:
   mode: custom
-  batch_size: 64
+  batch_size: 32
   eval_period: 1
   ckpt_period: 100
 model:
   type: GPSModel
-  loss_fun: cross_entropy
+  loss_fun: l1
   edge_decoding: dot
-  graph_pooling: mean
+  graph_pooling: add
 gt:
   layer_type: GINE+Transformer
-  layers: 4
+  layers: 10
   n_heads: 4
   dim_hidden: 64  # `gt.dim_hidden` must match `gnn.dim_inner`
   dropout: 0.0
@@ -49,9 +38,9 @@ gt:
   layer_norm: False
   batch_norm: True
 gnn:
-  head: default
+  head: san_graph
   layers_pre_mp: 0
-  layers_post_mp: 2
+  layers_post_mp: 3
   dim_inner: 64  # `gt.dim_hidden` must match `gnn.dim_inner`
   batchnorm: True
   act: relu
@@ -61,8 +50,8 @@ gnn:
 optim:
   clip_grad_norm: True
   optimizer: adamW
-  weight_decay: 1e-4
+  weight_decay: 1e-5
   base_lr: 0.001
-  max_epoch: 200
+  max_epoch: 2000
   scheduler: cosine_with_warmup
-  num_warmup_epochs: 20
+  num_warmup_epochs: 50

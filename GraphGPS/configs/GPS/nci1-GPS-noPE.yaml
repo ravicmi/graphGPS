@@ -11,7 +11,7 @@ dataset:
   task_type: classification
   transductive: False
   node_encoder: True
-  node_encoder_name: LinearNode+LapPE  # Pbase: LapPE as structural encoding
+  node_encoder_name: LinearNode  # P = ∅: no positional/structural encoding
   node_encoder_bn: False
   edge_encoder: True
   edge_encoder_name: DummyEdge
@@ -19,16 +19,6 @@ dataset:
   split_mode: cv-stratifiedkfold-10
   split_index: 0
   split_dir: splits
-posenc_LapPE:
-  enable: True
-  eigen:
-    laplacian_norm: sym
-    eigvec_norm: L2
-    max_freqs: 8
-  model: DeepSet
-  dim_pe: 8
-  layers: 2
-  raw_norm_type: none
 train:
   mode: custom
   batch_size: 64

@@ -3,15 +3,15 @@ metric_best: accuracy
 metric_agg: argmax
 wandb:
   use: False
-  project: NCI1
+  project: MUTAG
 dataset:
   format: PyG-TUDataset
-  name: NCI1
+  name: MUTAG
   task: graph
   task_type: classification
   transductive: False
   node_encoder: True
-  node_encoder_name: LinearNode+LapPE  # Pbase: LapPE as structural encoding
+  node_encoder_name: LinearNode  # P = ∅: no positional/structural encoding
   node_encoder_bn: False
   edge_encoder: True
   edge_encoder_name: DummyEdge
@@ -19,19 +19,9 @@ dataset:
   split_mode: cv-stratifiedkfold-10
   split_index: 0
   split_dir: splits
-posenc_LapPE:
-  enable: True
-  eigen:
-    laplacian_norm: sym
-    eigvec_norm: L2
-    max_freqs: 8
-  model: DeepSet
-  dim_pe: 8
-  layers: 2
-  raw_norm_type: none
 train:
   mode: custom
-  batch_size: 64
+  batch_size: 16
   eval_period: 1
   ckpt_period: 100
 model:
@@ -41,7 +31,7 @@ model:
   graph_pooling: mean
 gt:
   layer_type: GINE+Transformer
-  layers: 4
+  layers: 3
   n_heads: 4
   dim_hidden: 64  # `gt.dim_hidden` must match `gnn.dim_inner`
   dropout: 0.0
@@ -63,6 +53,6 @@ optim:
   optimizer: adamW
   weight_decay: 1e-4
   base_lr: 0.001
-  max_epoch: 200
+  max_epoch: 300
   scheduler: cosine_with_warmup
   num_warmup_epochs: 20
