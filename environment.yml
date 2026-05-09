@@ -1,0 +1,30 @@
+name: graphgps
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - rdkit
+  - openbabel
+  - fsspec
+  - pip
+  - pip:
+      - --index-url https://download.pytorch.org/whl/cu121
+      - torch==2.5.1
+      - torchvision
+      - torchaudio
+      - torch-geometric
+      - pytorch-lightning
+      - hyper-connections
+      - torch-einops-utils
+      - yacs
+      - torchmetrics
+      - performer-pytorch
+      - tensorboardX
+      - ogb
+      - wandb
+      - scikit-learn<1.6.0
+      - torch_scatter -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
+      - torch_sparse -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
+      - torch_cluster -f https://data.pyg.org/whl/torch-2.5.1+cu121.html
+      - torch_spline_conv -f https://data.pyg.org/whl/torch-2.5.1+cu121.html

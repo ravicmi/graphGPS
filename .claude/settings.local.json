@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import torch\")",
+      "Bash(pip3 show *)",
+      "Bash(git -C /Users/pratiksahoo/Code/LWG-Project add GraphGPS/configs/GPS/cifar10-GPS.yaml GraphGPS/configs/GPS/cifar10-GPS-noPE.yaml GraphGPS/scripts/check_dataset_stats.py GraphGPS/scripts/collect_q1_results.py GraphGPS/scripts/run_q1_ablation.sh)",
+      "Bash(git -C /Users/pratiksahoo/Code/LWG-Project commit -m ' *)",
+      "Bash(git -C /Users/pratiksahoo/Code/LWG-Project push)",
+      "Bash(python3 -c \"from torch_geometric.graphgym.config import cfg; print\\(cfg.seed if hasattr\\(cfg, 'seed'\\) else 'No seed attr'\\)\")",
+      "Bash(python3)",
+      "Bash(python3 main.py --help)",
+      "Bash(git -C /Users/pratiksahoo/Code/LWG-Project log --oneline -6)",
+      "Bash(git -C /Users/pratiksahoo/Code/LWG-Project show 1516566 --stat)",
+      "Bash(git -C /Users/pratiksahoo/Code/LWG-Project show 1516566 -- README.md)",
+      "Bash(conda env *)"
+    ]
+  }
+}
